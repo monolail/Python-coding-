@@ -1,0 +1,293 @@
+<K번째 약수>
+N,K = map(int,input().split())
+
+cnt = 0
+
+for i in range(1,N+1) :
+    if N%i == 0 :
+        cnt+=1
+    
+    if K == cnt :
+        print(i)
+        break
+else :
+    print(-1)
+
+<K번째 수>
+T = int(input())
+
+for i in range(T) :
+    N,s,e,K = map(int,input().split())
+    a = list(map(int, input().split()))
+    res = a[s-1:e]
+    res.sort()
+    print("#%d %d" %(i+1,res[K-1]))
+
+<K번째 큰 수>
+N,K = map(int,input().split())
+
+a = list(map(int, input().split()))
+
+result = set()
+
+for i in range(N) :
+    for j in range(i+1,N):
+        for k in range(j+1,N):
+            result.add(a[i]+a[j]+a[k])
+            
+res = sorted(result,reverse = True)
+
+print(res[K-1])
+
+<대표값>
+
+
+N = int(input())
+
+a = list(map(int, input().split()))
+
+avg = 0
+
+for i in range(N) :
+    avg += a[i]
+
+avg = int(avg/N + 0.5)
+
+result = []
+
+for i in range(N) :
+    result.append(abs(a[i] - avg))
+
+m = result[0]
+location = 0
+for i in range(N) :
+    if result[i] == m :
+        if a[i] > a[location] :
+            location = i
+            m = result[i]
+    if result[i] < m :
+        location = i
+        m = result[i]
+
+print(avg, location+1)
+
+
+<정다면체>
+import sys
+sys.stdin=open("input.txt", "r")
+
+N,M = map(int, input().split())
+
+a = []
+
+for i in range(1,N+1):
+    for j in range(1,M+1) :
+        a.append(i+j)
+
+counts = {}
+
+for item in a :
+    if item in counts :
+        counts[item] +=1
+
+    else :
+        counts[item] = 1
+
+
+max_val = max(counts.values())
+
+result = []
+
+for key, value in counts.items() :
+    if value == max_val :
+
+        result.append(key)
+
+for i in result :
+
+    print(i, end = ' ')
+
+
+<정다면체 - 개선 코드> - 판별
+import sys
+sys.stdin=open("input.txt", "r")
+
+
+N,M = map(int, input().split())
+
+cnt = [0]*(N+M+3)
+
+for i in range(1,N+1) :
+    for j in range(1,M+1) :
+        cnt[i+j] += 1
+
+Large = cnt[0]
+
+for i in range(len(cnt)) :
+    if Large < cnt[i] :
+        Large = cnt[i]
+
+result = []
+
+for i in range(len(cnt)) :
+    if cnt[i] == Large :
+        result.append(i)
+
+for i in result :
+    print(i, end = ' ')
+
+<자릿수의 합>
+import sys
+sys.stdin=open("input.txt", "r")
+
+def digit_sum(x) :
+
+    k = str(x)
+    sum = 0
+    for i in k :
+        sum += int(i)
+
+    return sum
+
+N = int(input())
+
+number = list(map(int, input().split()))
+
+result = []
+
+for i in number :
+    
+    gap = digit_sum(i)
+
+    result.append(gap)
+
+location = 0
+max_val = max(result)
+
+final = []
+
+for i in range(N) :
+    if result[i] == max_val :
+
+        final.append(number[i])
+
+print(final[0])
+
+<소수(에라토스테네스 체)>
+import sys
+sys.stdin=open("input.txt", "r")
+
+
+N= int(input())
+gap = [0] * (N+1)
+cnt =0
+
+for i in range(2,N+1) :
+    if gap[i] == 0 :
+        cnt += 1
+
+    for j in range(i,N+1,i) :
+        gap[j] += 1
+
+print(cnt)
+
+<뒤집은 소수>
+import sys
+sys.stdin=open("input.txt", "r")
+
+N = int(input())
+
+a = list(map(str,input().split()))
+
+def reverse(x) :
+
+    rev = x[::-1]
+
+    return int(rev)
+
+def isPrime(x) :
+
+    if x == 1:
+        return False
+
+    for i in range(2,x) :
+
+        if x%i == 0:
+            return False
+        
+    return True
+
+result = []
+
+
+for i in a :
+
+    gap = reverse(i)
+
+    result.append(gap)
+
+for i in result :
+
+    if isPrime(i) :
+        print(i, end = ' ')
+
+<주사위 게임>
+import sys
+sys.stdin=open("input.txt", "r")
+
+N = int(input())
+
+result = []
+
+for i in range(N) :
+    a = list(map(int,input().split()))
+
+    if a[0] == a[1] == a[2] :
+
+        gap = 10000 + a[0] * 1000
+
+        result.append(gap)
+
+    elif a[0] == a[1]  :
+
+        gap = 1000 + a[0] * 100
+
+        result.append(gap)
+
+    elif a[0] == a[2] :
+
+        gap = 1000 + a[0] * 100
+
+        result.append(gap)
+
+    elif a[1] == a[2] :
+
+        gap = 1000 + a[1] * 100
+
+        result.append(gap)
+
+    else :
+        result.append(max(a) * 100)
+
+print(max(result))
+
+<점수 계산>
+import sys
+sys.stdin=open("input.txt", "r")
+
+N = int(input())
+
+a = list(map(int,input().split()))
+
+p = 1
+
+sum = 0
+for i in a : 
+
+    if i == 1 :
+        sum += p
+        p += 1
+    else :
+        p = 1
+
+print(sum)
