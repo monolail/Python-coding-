@@ -1,0 +1,160 @@
+<이분 검색>
+sys.stdin=open("input.txt", "r")
+
+N,M = map(int, input().split())
+
+arr = list(map(int, input().split()))
+
+n = len(arr)
+for i in range(n):
+    for j in range(0, n-i-1):
+        if arr[j] > arr[j+1]:
+            arr[j], arr[j+1] = arr[j+1], arr[j]
+
+def Binary_search(arr) :
+    first = 0
+    end = N-1
+
+    while first <= end :
+        mid = (first + end) // 2
+        if arr[mid] == M :
+            return mid
+        
+        elif arr[mid] > M:
+                end = mid - 1
+            
+
+        else :
+            first = mid + 1
+
+    return -1
+
+print(Binary_search(arr)+1)
+
+
+# ver2
+def binary_search(array, target, start, end):
+    while start <= end :
+        mid = (start + end) // 2
+
+        if array[mid] == target :
+            return mid
+    
+        elif array[mid] > target :
+            end = mid - 1
+        
+        else :
+            start = mid + 1
+
+    return None
+
+
+
+N,M = map(int,input().split())
+
+gap = list(map(int,input().split()))
+
+new_gap = sorted(gap)
+
+result = binary_search(new_gap, M, 0, N - 1)
+
+print(result + 1)
+
+*버블 정렬*
+n = len(arr)
+for i in range(n):
+    for j in range(0, n-i-1):
+        if arr[j] > arr[j+1]:
+            arr[j], arr[j+1] = arr[j+1], arr[j]
+
+
+# 예제 정답
+N,M = map(int, input().split())
+
+arr = list(map(int,input().split()))
+
+arr = sorted(arr)
+
+rt = N-1
+lt = 0
+
+while (lt <= rt) :
+    mid = (lt+rt) // 2
+
+    if arr[mid] == M :
+        break
+
+    elif arr[mid] > M :
+        rt = mid - 1
+    else :
+        lt = mid + 1
+
+print(mid+1)
+
+<랜선 자르기>
+import sys
+sys.stdin=open("input.txt", "r")
+
+def Count(len) :
+    cnt = 0
+    for x in arr :
+        cnt += (x//len)
+    return cnt
+
+N,M = map(int, input().split())
+largest = 0
+arr = []
+
+res = 0
+for i in range(N) :
+    a = int(input())
+    arr.append(a)
+    largest = max(largest, a)
+
+
+lt = 1
+rt = largest
+
+while lt <= rt :
+    mid = (lt + rt) // 2
+    if Count(mid) >= M :
+        res = mid
+        lt = mid + 1
+    else :
+        rt = mid -1
+
+print(res)
+
+<뮤직 비디오>
+import sys
+sys.stdin=open("input.txt", "r")
+
+def Count(capacity) :
+    cnt = 1
+    hap =0
+    for x in L :
+        if hap + x > capacity :
+            cnt +=1
+            hap = x
+        else :
+            hap += x
+    return cnt
+
+N,M= map(int,input().split())
+
+L = list(map(int,input().split()))
+largest = max(L)
+lt = 1
+rt = sum(L)
+res=0
+
+while (lt <= rt) :
+    mid = (lt + rt) // 2
+    if mid >= largest and Count(mid) <= M :
+        rt = mid -1
+        res = mid
+
+    else :
+        lt = mid +1
+
+print(res)
