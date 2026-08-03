@@ -158,3 +158,107 @@ while (lt <= rt) :
         lt = mid +1
 
 print(res)
+
+<마구간 정하기>
+import sys
+sys.stdin=open("input.txt", "r")
+
+def Count(len) :
+    cnt = 1
+    ep = Line[0]
+    for i in range(1,N) :
+        if Line[i] - ep>= len :
+            cnt +=1
+            ep = Line[i]
+
+    return cnt
+
+N, C = map(int,input().split())
+
+Line = []
+
+for i in range(N) :
+    gap = int(input())
+    Line.append(gap)
+
+Line.sort()
+lt = 1
+rt = Line[N-1]
+
+while lt <= rt :
+    mid = (lt + rt) //2
+
+    if Count(mid) >= C :
+        res = mid
+        lt = mid + 1
+    else :
+        rt = mid -1
+
+print(res)
+
+<회의실 배정>
+
+import sys
+sys.stdin=open("input.txt", "r")
+
+N = int(input())
+
+meeting = []
+
+for i in range(N) :
+    s,e = map(int,input().split())
+    meeting.append((s,e))
+
+# 끝나는 시간대로 정렬
+meeting.sort(key = lambda  x :(x[1],x[0]))
+
+et = 0
+cnt = 0
+
+for s,e in meeting :
+    if s >= et :
+        cnt += 1
+        et = e
+print(cnt)
+
+<씨름 선수>
+import sys
+sys.stdin=open("input.txt", "r")
+
+N = int(input())
+
+Profile = []
+
+for i in range(N) :
+    H,W = map(int,input().split())
+    Profile.append((H,W))
+
+# 키는 이제 고려X
+# 가장 키 큰 사람을 제외함으로써, 몸무게로만 승부
+Profile.sort(reverse = True)
+
+Heavy = 0
+cnt = 0
+for x,y in Profile :
+    if y >= Heavy :
+        cnt +=1
+        Heavy = y
+
+print(cnt)
+
+<창고 정리>
+import sys
+sys.stdin=open("input.txt", "r")
+
+L= int(input())
+storage = list(map(int,input().split()))
+M = int(input())
+
+storage.sort()
+
+for i in range(M) :
+    storage[0] +=1
+    storage[L-1] -=1
+    storage.sort()
+
+print(storage[L-1] - storage[0])
