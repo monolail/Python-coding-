@@ -262,3 +262,125 @@ for i in range(M) :
     storage.sort()
 
 print(storage[L-1] - storage[0])
+
+
+<침몰하는 타이타닉>
+import sys
+sys.stdin=open("input.txt", "r")
+
+
+N,M = map(int,input().split())
+
+Weight = list(map(int,input().split()))
+
+Weight.sort()
+
+cnt = 0
+
+while (Weight) :
+
+    if len(Weight) == 1 :
+        cnt +=1
+        break
+    # 2명 이하로 탈 수 있다 제한.
+    # 제일 무거운 사람과 제일 가벼운 사람이 같이 탔을 때, 초과하는가?
+    if Weight[0] + Weight[-1] > M :
+        cnt += 1
+        Weight.pop()
+        
+    else :
+        Weight.pop(0)
+        Weight.pop()
+        cnt+=1
+
+
+print(cnt)
+
+# 만약 인원이 2명 제한이 풀린다면? -> 오류 발견(재검토)
+import sys
+sys.stdin=open("input.txt", "r")
+
+
+N,M = map(int,input().split())
+
+Weight = list(map(int,input().split()))
+
+Weight.sort()
+
+cnt = 0
+weight = Weight[0]
+length = 1
+
+while (Weight) :
+
+    if len(Weight) == 1 :
+        cnt +=1
+        break
+
+    if weight > M :
+        cnt += 1
+        
+        for i in range(1,length-1) :
+            gap = len(Weight) - i
+            Weight.pop(gap)
+        Weight.pop(0)
+        weight = Weight[0]
+        length = 1
+        
+    else :
+        weight += Weight[len(Weight) - length]
+        length += 1
+
+
+print(cnt)
+
+<증가 수열>
+# 값 자체로 접근
+import sys
+sys.stdin=open("input.txt", "r")
+
+N = int(input())
+
+num = list(map(int,input().split()))
+
+last = 0
+lt = num[0]
+rt = num[len(num)-1]
+res = ""
+
+
+while True:
+
+    if lt > last and rt > last:
+        if lt < rt:
+            res += 'L'
+            last = lt
+            num.pop(0)
+            lt = num[0]
+        else:
+            res += 'R'
+            last = rt
+            num.pop()
+            rt = num[len(num)-1]
+
+    elif lt > last:
+        res += 'L'
+        last = lt
+        num.pop(0)
+        lt = num[0]
+
+
+    elif rt > last:
+        res += 'R'
+        last = rt
+        num.pop()
+        rt = num[len(num)-1]
+
+    else :
+        break
+    
+print(len(res))
+print(res)
+
+
+# 투 포인터로 접근
