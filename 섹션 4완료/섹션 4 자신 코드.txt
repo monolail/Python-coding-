@@ -384,3 +384,71 @@ print(res)
 
 
 # 투 포인터로 접근
+import sys
+sys.stdin=open("input.txt", "r")
+
+N = int(input())
+
+num = list(map(int,input().split()))
+
+last = 0
+lt = 0
+rt = N-1
+res = ""
+
+
+while lt<=rt:
+    if num[lt] > last and num[rt] > last:
+        if num[lt] < num[rt]:
+            res += "L"
+            last = num[lt]
+            lt += 1
+        else:
+            res += "R"
+            last = num[rt]
+            rt -= 1
+            
+    elif num[lt] > last:
+        res += "L"
+        last = num[lt]
+        lt += 1
+    elif num[rt] > last:
+        res += "R"
+        last = num[rt]
+        rt -= 1
+
+    else :
+        break
+
+
+    
+
+
+# 4
+# LRLL
+
+print(len(res))
+print(res)
+
+<역수열>
+import sys
+sys.stdin=open("input.txt", "r")
+
+N = int(input())
+gap = list(map(int,input().split()))
+# N개의 0이 입력된 리스트
+num = [0] * N
+
+for i in range(N) :
+    
+    for j in range(N) :
+        if gap[i] == 0 and num[j] == 0 :
+            num[j] =i+ 1
+            break
+
+        elif  num[j] == 0 :
+            gap[i] -=1
+
+
+for x in num :
+    print(x, end=' ')
