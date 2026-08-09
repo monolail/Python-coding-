@@ -1,0 +1,93 @@
+<가장 큰 수>
+import sys
+sys.stdin=open("input.txt", "r")
+
+number_str, N = map(str, input().split())
+N = int(N)
+
+stack = []
+
+for num in number_str:
+    while stack and N > 0 and stack[-1] < num :
+        stack.pop()
+        N -= 1
+
+    stack.append(num)
+
+# 만약 N이 남아있다면, 스택에서 N개만큼 제거해야한다.
+# 역수일 경우 for문은 그냥 다 저장해버림.
+# 따라서 N만큼 제거.
+while N >0:
+    stack.pop()
+    N -= 1
+
+print(''.join(stack))
+
+<쇠막대기>
+import sys
+sys.stdin=open("input.txt", "r")
+
+stick = input()
+
+print(stick)
+
+res = []
+cnt = 0
+for i in range(len(stick)):
+
+    if stick[i] == '(':
+        res.append(i)
+
+    else :
+
+        res.pop()
+
+        if stick[i-1] == '(':
+            cnt += len(res)
+
+        else :
+            cnt+=1
+
+print(cnt)
+
+<후위표기식 만들기>
+import sys
+sys.stdin=open("input.txt", "r")
+
+# 후위표기식
+# 피연산자는 그대로
+# 부호와 괄호는 스택에 저장
+sik = input()
+
+print(sik)
+
+stack = []
+
+for i in range(len(sik)) :
+    if sik[i].isnumeric() :
+        print(sik[i],end='')
+    else :
+
+        if sik[i] == '*' or sik[i] == '/':
+            while stack and (stack[-1] == '*' or stack[-1] == '/') :
+                print(stack.pop(),end='')
+            stack.append(sik[i])
+
+        elif sik[i] == '(' :
+            stack.append(sik[i])
+
+        elif sik[i] == '+' or sik[i] == '-':
+
+            while stack and stack[-1] != '(' :
+                print(stack.pop(),end='')
+            stack.append(sik[i])
+
+        elif sik[i] == ')' :
+            while stack and stack[-1] != '(' :
+                print(stack.pop(),end='')
+
+            stack.pop()
+
+while stack :
+    print(stack.pop(),end='')
+            
