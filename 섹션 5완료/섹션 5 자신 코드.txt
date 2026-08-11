@@ -91,3 +91,103 @@ for i in range(len(sik)) :
 while stack :
     print(stack.pop(),end='')
             
+<후위식 연산>
+import sys
+sys.stdin=open("input.txt", "r")
+
+sik = input()
+
+print(sik)
+
+stack = []
+
+for i in range(len(sik)) :
+    if sik[i].isnumeric() :
+        stack.append(int(sik[i]))
+    else :
+        if sik[i] == '*' :
+            gap1 = stack.pop()
+            gap2 = stack.pop()
+
+            res = gap1 * gap2
+            stack.append(res)
+
+        elif sik[i] == '/' :
+            gap1 = stack.pop()
+            gap2 = stack.pop()
+
+            res = gap2 / gap1
+            stack.append(res)
+
+        elif sik[i] == '+' :
+            gap1 = stack.pop()
+            gap2 = stack.pop()
+
+            res = gap1 + gap2
+            stack.append(res)
+
+        else :
+            gap1 = stack.pop()
+            gap2 = stack.pop()
+
+            res = gap2 - gap1
+            stack.append(res)
+
+print(stack.pop())
+
+<공주 구하기 - 큐 자료구조>
+import sys
+sys.stdin=open("input.txt", "r")
+
+N,K = map(int,input().split())
+
+que = []
+
+for i in range(1,N+1) :
+    que.append(i)
+
+cnt = 1
+
+while len(que) != 1 :
+    if cnt == K :
+        que.pop(0)
+        cnt = 1
+
+    gap = que.pop(0)
+    que.append(gap)
+    cnt+= 1
+
+print(que.pop())
+
+<응급실>
+import sys
+sys.stdin=open("input.txt", "r")
+
+N,M = map(int,input().split())
+
+danger = list(map(int,input().split()))
+
+patient = danger[M]
+High = max(danger)
+cnt = 0
+
+while High != patient or M != 0 :
+
+    if danger[0] == High :
+        danger.pop(0)
+        High = max(danger)
+        cnt += 1
+        M = M - 1
+
+
+    else :
+        gap = danger.pop(0)
+        danger.append(gap)
+        M = M - 1
+
+    if M < 0 :
+        M += len(danger)
+
+print(cnt+1)
+
+<교육과정 설계>
