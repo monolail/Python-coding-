@@ -191,3 +191,93 @@ while High != patient or M != 0 :
 print(cnt+1)
 
 <교육과정 설계>
+import sys
+sys.stdin=open("input.txt", "r")
+
+study = str(input())
+order=[]
+for i in range(len(study)) :
+    order.append(study[i])
+
+N = int(input())
+
+plan=[]
+
+for i in range(N) :
+    gap = str(input())
+    plan.append(gap)
+
+res = []
+for i in range(N) :
+    tmp = []
+    student = plan[i]
+
+    for j in student :
+        if j in order :
+
+            if tmp.count(j) == 0 :
+                tmp.append(j)
+
+
+    res.append(tmp)
+
+for i in range(N) :
+    if res[i] == order :
+        print("#%d YES"%(i+1))
+    else :
+        print("#%d NO"%(i+1))
+
+<단어 찾기> -> 딕셔너리 활용
+import sys
+sys.stdin=open("input.txt", "r")
+
+N = int(input())
+
+note=[]
+
+for i in range(N) :
+    gap = str(input())
+    note.append(gap)
+
+novel = []
+
+for i in range(N-1) :
+    gap = str(input())
+
+    if gap in note :
+        note.remove(gap)
+
+print(note.pop())
+
+<Anagram>
+import sys
+sys.stdin=open("input.txt", "r")
+
+
+string1 = list(input())
+string2 = list(input())
+
+Ana1 = {}
+Ana2 = {}
+
+if len(string1) == len(string2) :
+
+    for i in range(len(string1)) :
+        gap1 = string1[i]
+        Ana1[gap1] = Ana1.get(gap1, 0) + 1
+
+        gap2 = string2[i]
+        Ana2[gap2] = Ana2.get(gap2, 0) + 1
+
+    # 딕셔너리 비교는 따로 정렬필요X
+    # res1 = sorted(Ana2.items())
+    # res2 = sorted(Ana1.items())
+
+
+    if Ana1 == Ana2 :
+        print("YES")
+    else :
+        print("NO")
+
+else :
+    print("NO")
