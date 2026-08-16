@@ -281,3 +281,58 @@ if len(string1) == len(string2) :
 
 else :
     print("NO")
+
+<최소힙>
+
+# import문으로 heapq 불러온 후
+import sys
+
+import heapq
+
+sys.stdin=open("input.txt", "r")
+
+heap = []
+
+while True :
+    gap = int(input())
+
+    if gap == -1 :
+        break
+
+    else :
+        if gap == 0 :
+            if len(heap) == 0 :
+                print(-1)
+
+            else :
+                print(heapq.heappop(heap))
+
+        else :
+            heapq.heappush(heap, gap)
+
+<최대힙>
+# import heapq를 사용
+import sys
+
+import heapq
+
+sys.stdin=open("input.txt", "r")
+
+heap = []
+
+while True :
+    gap = int(input())
+
+    if gap == -1 :
+        break
+
+    else :
+        if gap == 0 :
+            if len(heap) == 0 :
+                print(-1)
+
+            else :
+                print(-heapq.heappop(heap))
+
+        else :
+            heapq.heappush(heap, -gap)
