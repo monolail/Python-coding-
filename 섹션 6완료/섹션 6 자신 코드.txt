@@ -1,0 +1,67 @@
+<2진수 출력 - 재귀함수>
+import sys
+sys.stdin=open("input.txt", "r")
+
+
+
+def binary(a) :
+    if a == 0 or a == 1 :
+        return res.append(a)
+    
+    mok = a // 2
+    nam = a % 2
+    res.append(nam)
+    return binary(mok)
+
+gap = int(input())
+
+res = []
+
+binary(gap)
+
+for i in res[::-1] :
+    print(i,end='')
+
+<2진수 - 재귀 개선>
+import sys
+sys.stdin=open("input.txt", "r")
+
+
+
+def binary(a) :
+    if a == 0  :
+        return
+    
+    mok = a // 2
+    nam = a % 2
+    
+    binary(mok)
+    print(nam,end='')
+
+gap = int(input())
+
+binary(gap)
+
+<이진트리 순회 깊이 우선탐색 연습>
+import sys
+sys.stdin=open("input.txt", "r")
+
+def DFS(v) :
+    if v>7 :
+        return
+
+    else :
+        # 전위 
+        # print(v,end=" -> ")
+        DFS(v*2)
+        # 중위 
+        # print(v,end=" -> ")
+        DFS(v*2+1)
+        # 후위 
+        # print(v,end=" -> ")
+        
+
+if __name__ == "__main__" :
+    DFS(1)
+
+<부분집합 구하기(DFS)>
