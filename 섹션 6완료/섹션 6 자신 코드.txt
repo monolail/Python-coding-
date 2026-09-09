@@ -65,3 +65,363 @@ if __name__ == "__main__" :
     DFS(1)
 
 <부분집합 구하기(DFS)>
+import sys
+sys.stdin=open("input.txt", "r")
+
+def DFS(v) :
+    if v == (n + 1) :
+        for i in range(1,n+1) :
+            if ch[i] == 1 :
+                print(i, end=' ')
+
+        print()
+
+    else :
+        ch[v] = 1
+        DFS(v+1)
+        ch[v] = 0
+        DFS(v+1)
+        
+        
+
+if __name__ == "__main__" :
+    n = int(input())
+    ch = [0] * (n+1)
+
+    DFS(1)
+
+<합이 같은 부분집합>
+import sys
+sys.stdin=open("input.txt", "r")
+
+def DFS(L,sum) :
+    if L == n :
+        if sum == (total - sum) :
+            print("YES")
+            sys.exit(0) # 프로그램 종료 (함수 종료 X)
+
+    else :
+        DFS(L+1, sum+a[L])
+        DFS(L+1,sum)
+
+        
+
+if __name__ == "__main__" :
+    n = int(input())
+    a = list(map(int,input().split()))
+
+    total = sum(a)
+    DFS(0,0)
+    print("NO")
+
+
+<바둑이>
+import sys
+sys.stdin=open("input.txt", "r")
+
+def DFS(L,sum) :
+    global result
+
+    if sum > c :
+        return
+
+    if L == n :
+        if sum > result :
+            result = sum
+
+    else :
+        DFS(L+1, sum+a[L])
+        DFS(L+1,sum)
+
+        
+
+if __name__ == "__main__" :
+    c,n = map(int,input().split())
+    a=[0] * n
+
+
+    result = -21470000
+    for i in range(n) :
+        a[i] = int(input())
+
+    DFS(0,0)
+
+    print(result)
+    
+# 개선 번전
+import sys
+sys.stdin=open("input.txt", "r")
+
+def DFS(L,sum, tsum) :
+    global result
+    if sum+(total-tsum) < result :
+        return
+
+    if sum > c :
+        return
+
+    if L == n :
+        if sum > result :
+            result = sum
+
+    else :
+        DFS(L+1, sum+a[L],tsum+a[L])
+        DFS(L+1,sum, tsum+a[L])
+
+        
+
+if __name__ == "__main__" :
+    c,n = map(int,input().split())
+    a=[0] * n
+
+
+    result = -21470000
+    for i in range(n) :
+        a[i] = int(input())
+    total = sum(a)
+    DFS(0,0,0)
+
+    print(result)
+
+<중복순열>
+import sys
+sys.stdin=open("input.txt", "r")
+
+def DFS(L) :
+    global cnt
+    if L == m :
+        for i in range(m) :
+            print(a[i], end=' ')
+        cnt +=1
+        print()
+    else :
+        for i in range(1,n+1) :
+            a[L] = i
+            DFS(L+1)  
+
+if __name__ == "__main__" :
+    n,m = map(int,input().split())
+    a=[0] * m
+
+    cnt = 0
+    DFS(0)
+
+    print(cnt)
+
+<동전 교환>
+import sys
+sys.stdin=open("input.txt", "r")
+
+def DFS(L, sum) :
+    global res
+    if L > res :
+        return
+    if sum > m :
+        return
+    if sum == m :
+        if L < res :
+            res = L
+        
+    else :
+        for i in range(n) :
+            DFS(L+1, sum + a[i])  
+
+if __name__ == "__main__" :
+    n = int(input())
+    a=list(map(int,input().split()))
+    m = int(input())
+    res=2147000000
+    a.sort(reverse = 1)
+    DFS(0,0)
+    print(res)
+
+<순열 구하기>
+import sys
+sys.stdin=open("input.txt", "r")
+
+def DFS(L) :
+    global cnt,res
+
+    if L == m :
+        for i in range(m) :
+            print(res[i], end=' ') 
+        cnt +=1
+        print()
+
+
+    else :
+        for i in range(1,n+1) :
+            if ch[i] == 0 :
+                ch[i] = 1
+                res[L] = i
+                DFS(L+1)
+                ch[i]=0
+ 
+
+if __name__ == "__main__" :
+    n,m = map(int,input().split())
+    res = [0] *n
+    ch= [0]*(n+1)
+    cnt = 0
+    DFS(0)
+
+    print(cnt)
+
+<수열 추측하기>
+import sys
+sys.stdin=open("input.txt", "r")
+
+def DFS(L, sum) :
+    if L == n and sum == m :
+        for x in p :
+            print(x, end=' ')
+
+    else :
+        for i in range(1,n+1) :
+            if ch[i] == 0 :
+                ch[i] = 1
+                p[L] = i
+                DFS(L+1, sum + (b[L] * p[L]))
+                ch[i] = 0
+ 
+
+if __name__ == "__main__" :
+    n,m = map(int,input().split())
+    p = [0] * n
+    b = [0] * n
+    ch = [0] * (n+1)
+    for i in range(1,n):
+        b[i] = b[i-1] *(n-i)// (i)
+    DFS(0,0)    
+
+<조합 구하기>
+import sys
+sys.stdin=open("input.txt", "r")
+# 순열이 아닌 조합을 구하는 문제
+def DFS(L,start) :
+    global cnt
+    if L == m :
+        for i in range(m) :
+            print(res[i], end=' ') 
+        cnt +=1
+        print()
+
+    else :
+        for i in range(start,n+1) :
+            if ch[i] == 0 :
+                ch[i] = 1
+                res[L] = i
+                DFS(L+1,i+1)
+                ch[i] = 0
+        
+ 
+
+if __name__ == "__main__" :
+    n,m = map(int,input().split())
+    res = [0] *n
+    ch= [0]*(n+1)
+    cnt = 0
+    
+    DFS(0,1)
+    print(cnt)    
+
+# 간소화
+def DFS(L,start) :
+    global cnt
+    if L == m :
+        for i in range(m) :
+            print(res[i], end=' ') 
+        cnt +=1
+        print()
+
+    else :
+        for i in range(start,n+1) :
+            res[L] = i
+            DFS(L+1,i+1)
+        
+ 
+
+if __name__ == "__main__" :
+    n,m = map(int,input().split())
+    res = [0] *n
+    cnt = 0
+    
+    DFS(0,1)
+    print(cnt)    
+
+<수들의 조합>
+import sys
+sys.stdin=open("input.txt", "r")
+
+def DFS(L,start,sum_val) :
+    global cnt
+    if L == k :
+        if sum_val % M == 0 :
+            cnt +=1
+
+    else :
+        for i in range(start,n) :
+
+            DFS(L+1,i+1,sum_val + gap[i])
+        
+ 
+
+if __name__ == "__main__" :
+    n,k = map(int,input().split())
+    gap = list(map(int,input().split()))
+    M = int(input())
+
+    cnt = 0
+    DFS(0,0,0)
+
+    print(cnt)
+
+<인접 행렬>
+import sys
+sys.stdin=open("input.txt", "r")
+
+n,m = map(int,input().split())
+
+g = [[0]*(n+1) for _ in range(n+1)]
+
+for i in range(m) :
+    a,b,val = map(int,input().split())
+
+    g[a][b] = val
+
+for i in range(1,n+1) :
+    for j in range(1,n+1) :
+        print(g[i][j],end=' ')
+    print()
+
+<경로 탐색>
+import sys
+sys.stdin=open("input.txt", "r")
+
+def DFS(v) :
+    global cnt
+    if v == n :
+            cnt +=1
+
+    else :
+        for i in range(1,n+1) :
+            if g[v][i] == 1 and ch[i] == 0 :
+                 ch[i] = 1
+                 DFS(i)
+                 ch[i] = 0
+            
+ 
+
+if __name__ == "__main__" :
+    n,m = map(int,input().split())
+    g =  [[0]*(n+1) for _ in range(n+1)]
+    ch = [0]*(n+1)
+    for i in range(m) :
+        a,b = map(int,input().split())
+        g[a][b] = 1
+    cnt = 0
+    ch[1] = 1
+    DFS(1)
+
+    print(cnt)
+    
